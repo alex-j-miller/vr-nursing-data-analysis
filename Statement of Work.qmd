@@ -1,0 +1,63 @@
+---
+title: "Statement of Work"
+author: "Ivan, Alex, and Ha Dong"
+date: 19 February, 2024
+format: pdf
+editor: visual
+---
+
+**Project Partner**:
+
+For this project, we will be working with Professor Kunnen and the Calvin Nursing Department. We have the goal to assess the effectiveness of virtual reality simulation exercise in training nursing students. Nursing students were given a pre-survey (before using Virtual Reality) and a post-survey (after using virtual reality) and they answer all kind of questions such as confidence level while performing nursing tasks. We want to analyze the differences between the pre-survey and the post-survey.
+
+**Goals**:
+
+We would like to answer the following questions:
+
+-   Does virtual reality helps students on their nursing knowledge and abilities such as confidence?
+
+-   Does demographics have to do how well do nurses perform?
+
+**Deliverables**:
+
+Materials that we will have to use are the scanned surveys that we received from Professor Kunnen. We will have to manually create a spreadsheet with the data information from the surveys. This spreadsheet will be carefully checked by all of us and will be used as the data set for the project. We would like to use graphics and models in our project to show the findings. We would like to write a report with all the explanations and the findings of this project.
+
+**Data**:
+
+We will be using self-reported confidence and knowledge based assesment for the Nursing Department at Calvin University for their VR (Virtual Reality) simulation. We will be getting our data in the form of scanned paper copies of the reports.
+
+**Data Prep**:
+
+We will need to put all of the paper copies of the data into a data spreadsheet to digitize the data before any analysis gets done.
+
+**Background**:
+
+To begin our project, we need to delve into resources that explore the intersection of Virtual Reality (VR) and nursing. We are planning on starting with reputable sources like the National Library of Medicine, which has published studies examining how VR impacts nursing education and practice. One noteworthy article we found is "Virtual Reality Simulation Training for Nursing Education: An Experiment" (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7525398/). It provides valuable insights into the effectiveness of VR in enhancing nursing skills.
+
+Additionally, we could explore multimedia content such as TED Talks. Justin Sutherland's talk on "How Virtual Reality Sparks Medical Innovation" (https://www.ted.com/talks/justin_sutherland_how_virtual_reality_sparks_medical_innovation) could offer a fresh perspective on the subject.
+
+We should also consult experts like Professor DR and Katherine Swart, our library liaison, for guidance and additional resources.
+
+Furthermore, considering documentaries, films, and case studies can provide real-world examples of VR applications in nursing, enriching our understanding of the topic.
+
+By utilizing a variety of resources, we aim to gain a comprehensive understanding of how VR is influencing nursing practices, which will strengthen the relevance and significance of our project.
+
+**Current Skills**:
+
+Our group comprises computer science majors, so we're all pretty comfortable with coding in R. We have a solid background in problem-solving and are accustomed to seeking out information and collaborating through pair programming. This experience makes us well-equipped to tackle the challenges of the project.
+
+In addition to our coding skills, we bring various strengths to the table. Some of us excel in organization and time management, ensuring that our project stays on track and deadlines are met. Others have strong interpersonal skills, facilitating effective communication within the group and potentially with external stakeholders.
+
+While our primary expertise lies in R programming, Most of us have experiences in Github, Excel, and some have other experiences in Tableau. This diverse skill set enables us to approach the project from multiple angles and leverage different tools as needed.
+
+Overall, our collective skills and strengths position us advantageously for collaboration and problem-solving, ensuring a productive and successful project outcome.
+
+**Work Plan**:
+
+After discussing with our group, we believe that we would work best by dividing tasks among ourselves and then focusing on completing them efficiently and on time. While we value communication and collaboration, we feel that holding frequent meetings might not be necessary as long as we maintain clear channels for updates and progress reports.
+
+We plan to assign specific tasks or sections of the project to each team member based on individual strengths and interests. By doing so, we can ensure that everyone is contributing meaningfully to the project. While certain group members may take the lead on certain tasks based on their expertise, we aim to maintain an equal distribution of workload to foster a sense of shared ownership and accountability.
+
+In terms of scheduling meetings outside of class time, we will coordinate based on everyone's availability and preferences. We understand the importance of flexibility and will strive to find times that accommodate everyone's schedules.
+
+Overall, our focus will be on delivering high-quality work to our teammates while ensuring that each member contributes equally to the project's success.

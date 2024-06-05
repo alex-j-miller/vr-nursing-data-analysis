@@ -1,0 +1,143 @@
+---
+title: "Ready-To-Analyze Dataset"
+author: "Ivan, Alex, Hadong"
+format: pdf
+editor: visual
+---
+
+## Where our data came from
+
+Our data set was particularly tricky as we had to manually enter data from a survey format from nursing students given to by Professor Kunnen, into a google sheet, in which we converted to a csv and read it in below.
+
+## Getting my data and reading it in
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(ggformula)
+library(glmmTMB)
+library(DHARMa)
+library(ggeffects)
+library(MuMIn)
+
+prepost <- read_csv("Nursing VR - Sheet1.csv")
+
+# Display the first few rows of the dataset
+#head(prepost)
+
+# Print the structure of the dataset
+#glimpse(prepost)
+
+```
+
+## Lists of measures in our dataset
+
+1.  Participant ID: Unique identifier for each participant
+2.  Test entry point: When the students took the test, pre, post, and 2 months after using VR goggles (Categorical)
+3.  Questionnaire Responses: Responses to a series of questions, relating to experience of gaming, and using VR goggles, where choices were A, U, SA, and D, showing the students confidence levels.
+4.  Age: Age of participant (Probably Categorical?)
+5.  Gender: Male or female (Binary data one trial )
+6.  Ethnicity/Race: Ethnicity of participant (Binary data multiple trials)
+7.  Year of college: What the participants level of education was (Binary data multiple trials)
+
+```{r}
+prepost_num <- prepost |>
+  # here, write the first and last of the variable names with the Likert ("strongly agree", etc.) responses
+  # like first_variable_name : last_variable_name
+  # alternately, you can replace "health_assessment:inform_doctor with a list of variable names inside c()
+  # like: c(first_var, second_var, third_var, ..., last_var)
+  mutate(across(Health_Assessment:Assesment_Data_Knowledge_Confidence,
+                ~case_when(.x == 'SA' ~ 4,
+                           .x == 'A' ~ 3,
+                           .x == 'U' ~ 2,
+                           .x == 'D' ~ 1,
+                           .x == 'SD' ~ 0),
+                # new numeric columns will have names like the original columns,
+                # but with "_num" appended
+                .names = "{.col}_num"),
+         knowledge_num = (Health_Assessment_num + Nursing_Process_num + Nursing_Interventions_num + Assesment_Data_Knowledge_num) / 4,
+         confidence_num = (Confidence_of_Health_Assesment_num + Acute_Care_Nursing_Interventions_Confidence_num + Severe_Care_Nursing_Intervention_Confidence_num + Assesment_Data_Knowledge_Confidence_num) / 4
+         )
+
+#prepost_num <- prepost_num |>
+#  select(Confidence_of_Health_Assesment_num, Simulation_Experience,
+#  Year_Of_College, Nursing_Interventions_num, Nursing_Process_num, Gender) |>
+#  drop_na()
+
+prepost_num <- prepost_num |>
+  mutate(#Actual_Simulation_Expiriences = factor(Actual_Simulation_Expiriences),
+        Simulation_Experience = case_when(Actual_Simulation_Expiriences %in% c('Reality_Gaming_Exp', 'Gaming_and_Goggles', 'Reality_Goggles', 'Reality_Gaming') ~ 'Previous Experience',
+                                          Actual_Simulation_Expiriences == 'First' ~ 'No Experience'),
+         Year_Of_College = factor(Year_Of_College),
+         Gender = factor(Gender))
+
+glimpse(prepost_num)
+
+mosaic::tally(~knowledge_num, data = prepost_num)
+mosaic::tally(~confidence_num, data = prepost_num)
+
+#str(prepost_num)
+```
+
+```{r}
+gf_boxplot(knowledge_num ~ Simulation_Experience, data = prepost_num)
+```
+
+We chose to use a boxplot plot as this does a good job for the representation of quantitative data points and qualitative distinctions, making it good for distributions of various categories.
+
+The boxplot is showing the different distributions of knowledge of using VR technology compared to different simulation experiences, in which having reality goggles experiences increased the median of knowledge.
+
+```{r}
+knowledge_model <- lm( #glmmTMB(
+knowledge_num ~ Simulation_Experience * Time_Point + 
+  Year_Of_College + Gender,
+  data = prepost_num,
+  #family = poisson(link = 'log')
+)
+  options(scipen = 999) #Makes the results in non scientific notation
+
+summary(knowledge_model)
+
+
+    # Make predictions using the fitted model
+   # preds <- predict(knowledge_model, newdata = model)
+
+    # Calculate residuals
+    resids <- resid(knowledge_model)
+
+    # Residuals vs. fitted values plot
+ #   gf_point(resids ~ preds, data = model)
+
+    # Histogram of residuals
+#    gf_histogram(~ resids, data = model, bins = 10)
+
+```
+
+```{r}
+fitted(knowledge_model)
+```
+
+## Assessment
+
+**Independence Test**
+
+```{r}
+s245::gf_acf(~resid(knowledge_model)) |> gf_lims(y = c(-1, 1))
+
+```
+
+**Linearity Test**
+
+```{r}
+#gf_point(log(Confidence_of_Health_Assesment_num) ~ Simulation_Experience, data = #prepost_num)
+```
+
+```{r}
+ggpredict(knowledge_model, terms = c("Time_Point", "Simulation_Experience")) |> 
+  plot()
+```
+
+## Explanation
+
+For this week's submission, we were not able to complete all the graphs that we need for our model, however, we implemented your strategy of taking the average of certain variables we are using for a particular question. I also implemented the change to linear regression instead of count regression. There are definitely still some things we need to figure out, especially with Professor Kunnen, to ask her if we are able to merge questions together. From there we are able to make further progress in our graphs. However, we have an idea of where we need to go from here and we included our exploring graph (boxplot), one of our assessment models (ACF) and also our prediction plot. The rest of the graphs we were not able to complete yet, however, once we are able to confirm our next steps with Professor Kunnen, we will be able to make more progress.
